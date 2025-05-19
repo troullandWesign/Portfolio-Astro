@@ -1,0 +1,17 @@
+---
+const numberOfDivs = 12;
+---
+
+<section class="base loader">
+  <div class="container-full">
+    <div class="grid">
+      {Array.from({ length: numberOfDivs }).map((_, i) => (
+        <div class="col-1 rectangle" data-index={i} key={i}></div>
+      ))}
+      <div class="name">
+        <span>ROULLAND</span>
+        <span>THOMAS</span>
+      </div>
+    </div>
+  </div>
+</section>

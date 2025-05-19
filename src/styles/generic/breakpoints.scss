@@ -1,0 +1,35 @@
+// _breakpoints.scss
+
+// Définition des breakpoints
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px; 
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px; 
+$breakpoint-xl: 1200px; 
+$breakpoint-xl-mid: 1450px; 
+$breakpoint-xxl: 1780px; 
+
+// Mixin pour les breakpoints
+@mixin min($size) {
+  @if $size == xs {
+    @media (min-width: $breakpoint-xs) { @content; }
+  }
+  @else if $size == sm {
+    @media (min-width: $breakpoint-sm) { @content; }
+  }
+  @else if $size == md {
+    @media (min-width: $breakpoint-md) { @content; }
+  }
+  @else if $size == lg {
+    @media (min-width: $breakpoint-lg) { @content; }
+  }
+  @else if $size == xl {
+    @media (min-width: $breakpoint-xl) { @content; }
+  }
+  @else if $size == xl-mid {
+    @media (min-width: $breakpoint-xl-mid) { @content; }
+  }
+  @else if $size == xxl {
+    @media (min-width: $breakpoint-xxl) { @content; }
+  }
+}

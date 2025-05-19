@@ -1,0 +1,378 @@
+
+---
+  import Header from '../components/Header.astro';
+  import Footer from '../components/Footer.astro';
+  import Loader from '../components/Loader.astro';
+  import '../styles/global.scss';
+
+  const { title = 'ROULLAND Thomas' } = Astro.props;
+  ---
+
+  <html lang="fr">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>{title}</title>
+    </head>
+    <body >
+      <Header />
+
+      <div class="particles">
+        {Array.from({ length: 100 }).map((_, i) => (
+          <div class={`particle particle-${i + 1}`}></div>
+        ))}
+      </div>
+
+      <Loader />
+
+      <main class="page" id="scroll-container" data-scroll-container>
+        <slot /> <!-- contenu injecté ici -->
+        <Footer />
+      </main>
+
+       <!-- Mail + Footer EN DEHORS de Locomotive -->
+      <div class="mail"> <!-- ou composant spécifique si tu préfères -->
+        <a href="mailto:roulland.thomass@gmail.com">roulland.thomass@gmail.com</a>
+      </div>
+      
+      <script type="module">
+import LocomotiveScroll from 'https://cdn.skypack.dev/locomotive-scroll';
+import gsap from 'https://cdn.skypack.dev/gsap';
+
+// Initialisation de Locomotive Scroll
+const scroll = new LocomotiveScroll({
+  el: document.querySelector('#scroll-container'),
+  smooth: true,
+  multiplier: 1,
+});
+
+// Rendre l'instance accessible globalement pour les autres parties du code
+window.locomotiveScroll = scroll;
+
+// Exclure le loader des animations
+const sections = document.querySelectorAll('section:not(.loader)');
+
+// Fonction pour obtenir tous les éléments animables d'une section
+function getAnimatableElements(section) {
+  const selectors = [
+    'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+    'p', 'span', 'a',
+    'img', 'svg',
+    '.card', '.project', '.skill',
+    'li', 'blockquote',
+    'button', '.btn',
+    'form', 'input', 'textarea',
+    '[data-animate]' // Pour les éléments avec un attribut spécifique
+  ];
+  
+  const elements = [];
+  selectors.forEach(selector => {
+    const found = section.querySelectorAll(selector);
+    found.forEach(el => {
+      // Éviter les doublons et les éléments déjà dans d'autres éléments animables
+      if (!elements.includes(el) && !elements.some(parent => parent.contains(el))) {
+        elements.push(el);
+      }
+    });
+  });
+  
+  return elements;
+}
+
+// Préparer tous les éléments à être animés
+sections.forEach(section => {
+  const elements = getAnimatableElements(section);
+  elements.forEach(el => {
+    gsap.set(el, { 
+      opacity: 0, 
+      y: 60,
+      scale: 0.95,
+      // Ajouter un délai aléatoire léger pour plus de naturel
+      delay: Math.random() * 0.1
+    });
+  });
+});
+
+// Fonction qui anime une section avec un effet en cascade sophistiqué
+function animateSection(section) {
+  const elements = getAnimatableElements(section);
+  
+  // Créer une timeline pour plus de contrôle
+  const tl = gsap.timeline();
+  
+  // Animer chaque élément avec un stagger personnalisé
+  elements.forEach((el, index) => {
+    const delay = index * 0.08; // Délai entre chaque élément
+    
+    tl.to(el, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.8,
+      ease: "power3.out",
+    }, delay);
+  });
+  
+  return tl;
+}
+
+// Observer avec une meilleure gestion du seuil
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '-10% 0px -10% 0px'
+};
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+      animateSection(entry.target);
+      entry.target.classList.add('animated');
+    }
+  });
+}, observerOptions);
+
+// Observer chaque section
+sections.forEach(section => {
+  sectionObserver.observe(section);
+});
+
+// Gérer le scroll avec Locomotive
+scroll.on('scroll', (instance) => {
+  // Optionnel : ajouter des effets de parallax ou autres
+  sections.forEach(section => {
+    const bounds = section.getBoundingClientRect();
+    const progress = (window.innerHeight - bounds.top) / (window.innerHeight + bounds.height);
+    
+    // Ajuster l'opacité légèrement en fonction du scroll
+    if (section.classList.contains('animated')) {
+      gsap.to(section, {
+        opacity: Math.max(0.3, 1 - progress * 0.3),
+        duration: 0.1,
+        overwrite: 'auto'
+      });
+    }
+  });
+});
+
+// ==== CODE DU MENU ====
+const burger = document.querySelector('.burger');
+const checkbox = document.querySelector('#openMenu');
+const nav = document.querySelector('#menuNav');
+const overlay = document.querySelector('#menuOverlay');
+const navItems = nav.querySelectorAll('.navigation .items *');
+const contact = nav.querySelector('.contact');
+
+// Position initiale
+gsap.set(nav, { x: '100%' });
+gsap.set(overlay, { opacity: 0, pointerEvents: 'none' });
+gsap.set([...navItems, contact], { opacity: 0, y: 20 });
+
+// Configuration des animations avec des paramètres personnalisés
+const animConfig = {
+  duration: {
+    overlay: 0.8,
+    nav: 1.2,
+    items: 0.7,
+    contact: 0.7
+  },
+  ease: {
+    in: "power3.inOut",
+    out: "power3.out", 
+    items: "back.out(1.4)"  // Effet légèrement élastique pour les éléments du menu
+  },
+  stagger: 0.08,  // Délai entre chaque élément pour une cascade plus naturelle
+  delay: {
+    items: 0.3,
+    contact: 0.5
+  }
+};
+
+// Fonction d'ouverture avec animation améliorée
+function openMenu() {
+  // Première étape: fondu de l'overlay
+  gsap.to(overlay, {
+    opacity: 0.95,
+    duration: animConfig.duration.overlay,
+    ease: animConfig.ease.out,
+    pointerEvents: 'auto'
+  });
+  
+  // Deuxième étape: le menu glisse de la droite
+  gsap.to(nav, {
+    x: 0,
+    duration: animConfig.duration.nav,
+    ease: animConfig.ease.out
+  });
+  
+  // Troisième étape: les éléments du menu apparaissent en cascade
+  gsap.to(navItems, {
+    opacity: 1,
+    y: 0,
+    duration: animConfig.duration.items,
+    ease: animConfig.ease.items,
+    stagger: animConfig.stagger,
+    delay: animConfig.delay.items
+  });
+  
+  // Quatrième étape: le bloc contact apparaît
+  gsap.to(contact, {
+    opacity: 1,
+    y: 0,
+    duration: animConfig.duration.contact,
+    ease: animConfig.ease.items,
+    delay: animConfig.delay.contact
+  });
+}
+
+// Fonction de fermeture avec animation améliorée
+function closeMenu() {
+  // Animation des éléments dans l'ordre inverse pour une fermeture naturelle
+  
+  // D'abord, les éléments du menu et le contact disparaissent
+  gsap.to([...navItems, contact], {
+    opacity: 0,
+    y: 15,
+    duration: animConfig.duration.items * 0.7,
+    ease: animConfig.ease.in,
+    stagger: animConfig.stagger / 2
+  });
+  
+  // Ensuite, le menu glisse vers la droite
+  gsap.to(nav, {
+    x: '100%',
+    duration: animConfig.duration.nav * 0.8,
+    ease: animConfig.ease.in,
+    delay: 0.2
+  });
+  
+  // Enfin, l'overlay disparaît en fondu
+  gsap.to(overlay, {
+    opacity: 0,
+    duration: animConfig.duration.overlay * 0.8,
+    ease: animConfig.ease.in,
+    pointerEvents: 'none',
+    delay: 0.1
+  });
+}
+
+// Listener sur la checkbox
+checkbox.addEventListener('change', () => {
+  // Prévenir les clics multiples pendant l'animation
+  burger.style.pointerEvents = 'none';
+  
+  if (checkbox.checked) {
+    openMenu();
+  } else {
+    closeMenu();
+  }
+  
+  // Réactiver les clics après l'animation
+  setTimeout(() => {
+    burger.style.pointerEvents = 'auto';
+  }, animConfig.duration.nav * 1000);
+});
+
+// Fermer en cliquant sur l'overlay
+overlay.addEventListener('click', () => {
+  checkbox.checked = false;
+  checkbox.dispatchEvent(new Event('change'));
+});
+
+// Fermer le menu quand on clique sur un lien
+const menuLinks = nav.querySelectorAll('a');
+menuLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    // Vérifier si c'est un lien interne (commence par #)
+    const href = link.getAttribute('href');
+    const isInternalLink = href && (href.startsWith('#') || href === '');
+    
+    if (isInternalLink) {
+      // Pour les liens internes, on empêche le comportement par défaut
+      e.preventDefault();
+      
+      // On ferme d'abord le menu
+      checkbox.checked = false;
+      checkbox.dispatchEvent(new Event('change'));
+      
+      // Utiliser Locomotive Scroll pour naviguer vers l'ancre
+      setTimeout(() => {
+        const targetId = href.substring(1); // Enlève le # du href
+        
+        if (targetId) {
+          // Utiliser l'API de Locomotive Scroll pour scroller vers l'élément
+          const locomotiveScroll = window.locomotiveScroll || scroll; // Récupérer l'instance de Locomotive Scroll
+          
+          if (locomotiveScroll) {
+            locomotiveScroll.scrollTo(`#${targetId}`, {
+              offset: 0,
+              duration: 1000, // durée de l'animation en ms
+              easing: [0.25, 0.00, 0.35, 1.00] // courbe d'animation
+            });
+          }
+        } else {
+          // Si href est "#" ou "", on scroll vers le haut avec Locomotive
+          const locomotiveScroll = window.locomotiveScroll || scroll;
+          if (locomotiveScroll) {
+            locomotiveScroll.scrollTo(0, {
+              duration: 1000,
+              easing: [0.25, 0.00, 0.35, 1.00]
+            });
+          }
+        }
+      }, 300); // Délai pour permettre au menu de commencer à se fermer
+    } else {
+      // Pour les liens externes, on ferme juste le menu
+      // La navigation se fera normalement
+      checkbox.checked = false;
+      checkbox.dispatchEvent(new Event('change'));
+    }
+  });
+});
+
+// Animation du burger menu pour améliorer l'expérience utilisateur
+burger.addEventListener('mouseenter', () => {
+  gsap.to(burger, {
+    scale: 1.05,
+    duration: 0.3,
+    ease: "power2.out"
+  });
+});
+
+burger.addEventListener('mouseleave', () => {
+  gsap.to(burger, {
+    scale: 1,
+    duration: 0.3,
+    ease: "power2.out"
+  });
+});
+
+// Animation du clic sur le burger
+burger.addEventListener('click', () => {
+  gsap.to(burger, {
+    scale: 0.95,
+    duration: 0.1,
+    yoyo: true,
+    repeat: 1,
+    ease: "power1.in"
+  });
+});
+
+// Animation d'entrée pour la première section visible
+window.addEventListener('load', () => {
+  scroll.update();
+  
+  // Animer immédiatement la première section si elle est visible
+  setTimeout(() => {
+    const firstSection = sections[0];
+    if (firstSection) {
+      const bounds = firstSection.getBoundingClientRect();
+      if (bounds.top < window.innerHeight * 0.8) {
+        animateSection(firstSection);
+        firstSection.classList.add('animated');
+      }
+    }
+  }, 100);
+});
+</script>
+    </body>
+  </html>

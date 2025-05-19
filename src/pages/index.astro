@@ -1,0 +1,207 @@
+---
+import axios from 'axios';
+
+// Récupérer la page d’accueil par son slug (ex: 'accueil')
+const response = await axios.get('http://thomas-roulland.local/wp-json/wp/v2/pages?slug=home');
+const page = response.data[0]; // c’est un tableau, on prend le premier élément
+
+import Layout from '../layouts/BaseLayout.astro';
+---
+
+<Layout title="Accueil - Mon Portfolio">
+  <section class="entry base" id="entry">
+    <div class="container">
+      <div class="entry-content">
+        <h1 class="title"><span>FrontEND</span><span>Developer</span></h1>
+        <div class="text">
+          <p>Hey ! Moi c’est <strong>Thomas</strong>. Depuis plus de 3 ans, je transforme des idées en sites web fluides, animés et au style unique.</p> 
+          <p>Le front-end, c’est mon dada. Un site, c’est une expérience à vivre, pas juste un code à exécuter.</p>
+        </div>
+        <button>
+          On fait équipe ?
+        </button>
+      </div>
+      <div class="informations">
+        <div class="item">
+          <span class="number">3+</span>
+          <p>D'expériences</p>
+        </div>
+        <div class="item">
+          <span class="number">5+</span>
+          <p>Projets réalisés</p>
+        </div>
+        <div class="item">
+          <span class="number">656 +</span>
+          <p>commits / 2024</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="base about" id="about">
+    <div class="container">
+      <h2>J’adopte une démarche utilisateur ce qui me permet de concevoir des interfaces responsives, performantes et accessibles, optimisées pour le SEO et les Web Vitals.</h2>
+      <p class="separateur">Et ça c'est moi</p>
+      <div class="about-me">
+        <p class="prenom">Thomas R.</p>
+        <div class="description">
+          <p >Je suis développeur front-end, je fais passer les idées du concept à l’écran en créant des interfaces à la fois créatives, fluides et intuitives.</p>
+          <p>Ma méthodologie repose sur des composants modulaires et performants, pensés pour évoluer avec le projet et répondre aux objectifs métier. En plaçant la performance, l’accessibilité et la réactivité au cœur de ma démarche, je conçois des expériences digitales engageantes qui génèrent des résultats concrets</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="stacks base" id="stacks">
+    <div class="container">
+      <div>
+        <p>MES STACKS</p>
+      </div>      
+      <div class="category">
+        <h3>FRONTEND</h3>
+        <div class="stack">
+          <div><img src="https://cdn.simpleicons.org/sass" alt="SASS" width="40px" height="40px"/> SASS</div>
+          <div><img src="https://cdn.simpleicons.org/tailwindcss" alt="tailwindcss" width="40px" height="40px"/> Tailwind CSS</div>
+          <div><img src="https://cdn.simpleicons.org/bootstrap" alt="Bootstrap" width="40px" height="40px"/> Bootstrap</div>
+          <div><img src="https://cdn.simpleicons.org/javascript" alt="React" width="40px" height="40px" /> Javascript</div>
+          <div><img src="https://cdn.simpleicons.org/greensock" alt="GSAP" width="40px" height="40px"/> GSAP</div>
+          <div><img src="https://cdn.simpleicons.org/astro" alt="Astro" width="40px" height="40px"/> Astro</div>
+          <div><img src="https://cdn.simpleicons.org/vuedotjs" alt="vuedotjs" width="40px" height="40px"/> Vue.Js</div>
+          <div><img src="https://cdn.simpleicons.org/nuxt" alt="nuxt" width="40px" height="40px"/> Nuxt</div>
+        </div>
+      </div>
+    
+      <div class="category">
+        <h3>BACKEND & CMS</h3>
+        <div class="stack">
+          <div><img src="https://cdn.simpleicons.org/wordpress" alt="wordpress" width="40px" height="40px"/> Wordpress</div>
+          <div><img src="https://cdn.simpleicons.org/shopify" alt="shopify" width="40px" height="40px"/> Shopify</div>
+          <div><img src="https://cdn.simpleicons.org/php" alt="PHP" width="40px" height="40px"/> PHP</div>
+          <div><img src="https://cdn.simpleicons.org/laravel" alt="Laravel" width="40px" height="40px"/> Laravel</div>
+        </div>
+      </div>
+    
+      <div class="category">
+        <h3>DATABASE</h3>
+        <div class="stack">
+          <div><img src="https://cdn.simpleicons.org/mysql" alt="MySQL" width="40px" height="40px" /> MySQL</div>
+          <div><img src="https://cdn.simpleicons.org/postgresql" alt="PostgreSQL" width="40px" height="40px"/> PostgreSQL</div>
+        </div>
+      </div>
+    
+      <div class="category">
+        <h3>TOOLS</h3>
+        <div class="stack">
+          <div><img src="https://cdn.simpleicons.org/git" alt="Git" width="40px" height="40px"/> Git</div>
+          <div><img src="https://cdn.simpleicons.org/docker" alt="Docker" width="40px" height="40px"/> Docker</div>
+          <div><img src="https://cdn.simpleicons.org/nginx" alt="nginx" width="40px" height="40px"/> Nginx</div>
+          <div><img src="https://cdn.simpleicons.org/apache" alt="apache" width="40px" height="40px"/> Apache</div>
+          <div><img src="https://cdn.simpleicons.org/linux" alt="linux" width="40px" height="40px"/> Linux</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="experiences base" id="experiences">
+    <div class="container">
+      <div class="titre-section">
+        <p>MON EXPERIENCE</p>
+      </div>      
+      <div class="experience">
+        <p class="entreprise">WESIGN</p>
+        <p class="poste">Développeur Frontend</p>
+        <p class="date">Novembre 2022 - Septembre 2025</p>
+      </div>
+      <div class="experience">
+        <p class="entreprise">Zaacom - Stage</p>
+        <p class="poste">Développeur Full stack</p>
+        <p class="date">Décembre 2021 - Février 2022</p>
+      </div>
+      <div class="experience">
+        <p class="entreprise">Addequa - Stage</p>
+        <p class="poste">Développeur Web/Wordpress</p>
+        <p class="date">Mai 2021 - Juillet 2021</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="projets base" id="projets">
+    <div class="container">
+      <div class="titre-section">
+        <p>MES PROJETS</p>
+      </div>      
+      <div class="listing-projets">
+        <div class="projet">
+          <p class="number">_01.</p>
+          <div class="content">
+             <p class="nom-projet">Lerat Location</p>
+              <div class="stacks">
+                <span>Wordpress</span>
+                <span>Twig</span>
+                <span>PHP</span>
+                <span>JS / BARBA.JS</span>
+                <span>SCSS</span>
+            </div>
+          </div>
+        </div>
+        <div class="projet">
+          <p class="number">_02.</p>
+          <div class="content">
+            <p class="nom-projet">Praticima</p>
+            <div class="stacks">
+              <span>Wordpress</span>
+              <span>Twig</span>
+              <span>PHP</span>
+              <span>JS / BARBA.JS</span>
+              <span>SCSS</span>
+            </div>
+          </div>
+        </div>
+        <div class="projet">
+          <p class="number">_03.</p>
+          <div class="content">
+            <p class="nom-projet">Byron Parfums</p>
+            <div class="stacks">
+              <span>Wordpress</span>
+              <span>Twig</span>
+              <span>PHP</span>
+              <span>JS / BARBA.JS</span>
+              <span>SCSS</span>
+            </div>
+          </div>
+          
+        </div>
+        <div class="projet">
+          <p class="number">_04.</p>
+          <div class="content"> 
+             <p class="nom-projet">Normandie Challenge </p>
+            <div class="stacks">
+              <span>Wordpress</span>
+              <span>Twig</span>
+              <span>PHP</span>
+              <span>JS / BARBA.JS</span>
+              <span>SCSS</span>
+            </div>
+          </div>
+        </div>
+        <div class="projet">
+          <p class="number">_05.</p>
+          <div class="content">
+            <p class="nom-projet">Villa victoria </p>
+            <div class="stacks">
+              <span>Shopify</span>
+              <span>Liquid</span>
+              <span>CSS</span>
+              <span>JS / BARBA.JS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+    
+</Layout>
+
+
+

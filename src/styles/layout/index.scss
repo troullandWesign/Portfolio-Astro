@@ -1,0 +1,227 @@
+    @use '../generic/variables.scss' as *;
+
+    .mail {
+        position: fixed;
+        left: 15px;
+        top: 75vh;
+        transform: rotate(90deg);
+        transform-origin: left bottom;      
+        a {
+            text-decoration: none;
+            color: #b5b5b5;
+        }        
+    }
+    section.entry {
+        height: 100vh;
+        padding-bottom: 250px;
+        max-height: 100vh;
+        position: relative;
+        .container {
+            display: flex;
+            align-items: center;
+            .entry-content {
+                .title {
+                    margin-bottom: 50px;
+                    span {
+                        display: block;
+                        line-height: 1;
+                        &:first-child {
+                            color: $primary-color;
+                        }
+                        &:last-child {
+                            margin-left: 20px;
+                        }
+                    }
+                }
+                .text {
+                    margin-bottom: 50px;
+
+                    p {
+                        &:last-of-type {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+            .informations {
+                position: absolute;
+                right: 50px;
+                bottom: 25vh;
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+                .item {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: end;
+                    .number {
+                        color : $primary-color;
+                        font-family: var(--font-title); 
+                        font-size: 2.25rem;
+                    }
+                }
+            }
+        }
+    }
+
+    section.about {
+        padding-bottom: 250px;
+        h2 {
+            font-size: 3.75rem;
+            font-family: var(--font-text);
+            font-weight: lighter;
+            margin-bottom: 5rem;
+        }
+        .separateur {
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #3c3c3c;
+        }
+        .about-me {
+            display: grid;
+            grid-template-columns: 40% 60%;
+            gap: 50px;
+            margin-top: 2.25rem;
+            .prenom {
+                font-size: 3rem;
+                margin: 0;
+            }
+            .description {
+                max-width: 25vw;
+                *{
+                    line-height: 1.75rem;
+                }
+            }
+        }
+    }
+
+    section.stacks {
+        padding-bottom: 250px;
+        .category {
+            display: grid;
+            grid-template-columns: 40% 60%;
+            &:not(:first-child){
+                margin-top: 5rem;
+            }
+            h3 {
+                font-size: 3rem;
+                font-weight: normal;
+            }
+            .stack {
+                display: flex;
+                flex-wrap: wrap;
+                column-gap: 2.25rem;
+                row-gap: 2.25rem;
+                div {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1rem;
+                    font-size: 1.5rem;
+                    line-height: 2rem;
+                }
+            }
+        }
+    }
+
+    section.experiences {
+        padding-bottom: 250px;
+        .titre-section {
+            margin-bottom: 3.5rem;
+        }
+        .experience {
+            margin-bottom: 3.5rem;
+            .date,.entreprise {
+                font-size: 1.25rem;
+                line-height: 1.75rem;
+            }
+            .poste {
+                font-size: 3rem;
+                line-height: 1;
+                font-family: var(--font-title);
+                text-transform: uppercase;
+                margin: 1rem 0;
+            }
+        }
+    }
+
+    section.projets {
+          .titre-section {
+            margin-bottom: 3.5rem;
+        }
+        .listing-projets {
+            &:hover {
+                .projet {
+                opacity: 0.5;
+
+                &:hover {
+                    opacity: 1;
+                }
+                }
+            }
+            .projet {
+                transition: opacity 0.3s ease;
+                border-bottom: 1px solid #3c3c3c;
+                padding-bottom: 1.25rem;
+                display: flex;
+                gap: 1rem;
+                &:hover {
+                opacity: 1;
+                }
+                .number {
+                    padding-top: 1rem;
+                    font-family: var(--font-title);
+                }
+                .nom-projet {
+                font-family: var(--font-title);
+                text-transform: uppercase;
+                font-size: 3.75rem;
+                background: linear-gradient(to right, $primary-color 50%, #c5c4c4 50%);
+                background-size: 200% 100%;
+                background-position: 100% 0;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                transition: background-position 1s ease;
+
+                &:hover {
+                    background-position: 0 0;
+                }
+                }
+                .stacks {
+                    span {
+                        position: relative; // utile si nécessaire
+                        margin-right: 10px;
+                        &:not(:last-child)::after {
+                        content: "";
+                        display: inline-block;
+                        height: 5px;
+                        width: 5px;
+                        background-color: $primary-color;
+                        border-radius: 100%;
+                        margin-left: 10px;
+                        vertical-align: middle; 
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    footer {
+        padding: 300px 0 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+
+        a {
+            font-family: var(--font-title);
+            text-transform: none;
+            text-decoration: none;
+            color: #c5c4c4;
+            font-size: 2.25rem;
+        }
+
+        .copy {
+            font-size: 0.8rem;
+        }
+    }

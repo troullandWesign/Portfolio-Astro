@@ -1,0 +1,24 @@
+{
+  "name": "minor-metal",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.7.4",
+    "axios": "^1.8.4",
+    "gsap": "^3.13.0",
+    "locomotive-scroll": "^4.1.4",
+    "split-type": "^0.3.4",
+    "swiper": "^11.2.6",
+    "tsparticles": "^3.8.1",
+    "tsparticles-engine": "^2.12.0"
+  },
+  "devDependencies": {
+    "sass": "^1.86.3"
+  }
+}

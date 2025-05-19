@@ -1,0 +1,52 @@
+@use 'breakpoints' as *; 
+
+$nbCol: 12;
+
+@mixin col($cols) {
+  grid-column: span $cols;
+}
+
+// Mise en place de la grille principale
+.base {
+  display: grid;
+  grid-template-columns: [gutter-l] minmax(100px, 7.5%) [container] 1fr [gutter-r] minmax(100px, 7.5%);
+
+  @include min(lg){
+    grid-template-columns: [gutter-l] 20vw [container] 1fr [gutter-r] 20vw;
+  } 
+
+}
+
+// Containers
+.container {
+  grid-column: container;
+
+  &-semi {
+    &-l { 
+      grid-column: container; 
+    }
+    &-r { 
+      grid-column: container; 
+    }
+  }
+
+  &-full {
+    grid-column: 1 / 4;
+  }
+}
+
+// Grille flexible avec un nombre dynamique de colonnes
+.grid {
+  display: grid;
+  grid-template-columns: repeat($nbCol, minmax(0, 1fr));
+  grid-template-rows: minmax(0, auto);
+  width: 100%;
+}
+
+
+// Générer les classes pour col-1 à col-12
+@for $i from 1 through $nbCol {
+  .col-#{$i} {
+    @include col($i);
+  }
+}
