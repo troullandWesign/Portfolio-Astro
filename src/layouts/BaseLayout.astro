@@ -42,16 +42,9 @@ const { title = 'ROULLAND Thomas' } = Astro.props;
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
-      // Fonction pour déterminer le nombre de particules selon la taille de l'écran
-      function getNumberOfDots() {
-        if (window.innerWidth <= 768) {
-          return 30; // Moins de particules pour les écrans de taille mobile
-        } else {
-          return 50; // Plus de particules pour les écrans plus larges
-        }
-      }
-
-      let numberOfDots = getNumberOfDots(); // Initialisation du nombre de particules
+      const dotsArray = [];
+      const numberOfDots = 50; // Réduire le nombre de particules
+      
 
       // Définir la couleur des particules comme blanc avec 50% d'opacité
       const colors = ['rgba(255, 255, 255, 0.2)']; // Utiliser rgba pour spécifier l'opacité à 50%
@@ -113,9 +106,14 @@ const { title = 'ROULLAND Thomas' } = Astro.props;
       }
 
       function init() {
-        numberOfDots = getNumberOfDots(); // Mettre à jour le nombre de particules selon la taille de l'écran
-        for (let i = 0; i < numberOfDots; i++) {
-          dotsArray.push(new Dot());
+        if (window.innerWidth <= 768) {
+          for (let i = 0; i < 30; i++) {
+            dotsArray.push(new Dot());
+          }
+        } else {
+          for (let i = 0; i < numberOfDots; i++) {
+            dotsArray.push(new Dot());
+          } // Plus de particules pour les écrans plus larges
         }
       }
 
@@ -131,12 +129,10 @@ const { title = 'ROULLAND Thomas' } = Astro.props;
       window.addEventListener('resize', function () {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        init(); // Réinitialiser les particules lorsque la taille de l'écran change
       });
 
       init();
       animate();
-
 
 
       const sections = document.querySelectorAll('section:not(.loader)');
