@@ -10,13 +10,6 @@ $particle-speed: 20; // Durée de l'animation des particules (en secondes)
   @return math.random() * $max-duration; // Utiliser math.random() pour générer une valeur aléatoire
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-
 body {
   margin: 0;
   padding: 0;
@@ -29,7 +22,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
+    z-index: -1;
     pointer-events: none;
   }
   

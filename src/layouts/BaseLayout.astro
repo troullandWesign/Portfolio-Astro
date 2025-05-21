@@ -1,84 +1,55 @@
-
 ---
-  import Header from '../components/Header.astro';
-  import Footer from '../components/Footer.astro';
-  import Loader from '../components/Loader.astro';
-  import '../styles/global.scss';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Loader from '../components/Loader.astro';
+import '../styles/global.scss';
 
-  const { title = 'ROULLAND Thomas' } = Astro.props;
-  ---
+const { title = 'ROULLAND Thomas' } = Astro.props;
+---
 
-  <html lang="fr">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>{title}</title>
-      <meta name="description" content="Portfolio de Thomas Roulland, développeur web spécialisé dans le frontend." />
-      <link rel="icon" href="/favicon-32x32.png" type="image/x-icon" />
-    </head>
-    <body >
-      <div id="smooth-wrapper">
-        <div id="scroll-container" data-scroll-container>
-          <Header />
-          <div class="particles">
-            {Array.from({ length: 100 }).map((_, i) => (
-              <div class={`particle particle-${i + 1}`}></div>
-            ))}
-          </div>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content="Portfolio de Thomas Roulland, développeur web spécialisé dans le frontend." />
+    <link rel="icon" href="/favicon-32x32.png" type="image/x-icon" />
+  </head>
+  <body>
+    <Header />
 
-          <Loader />
+    <div class="particles">
+      {Array.from({ length: 100 }).map((_, i) => (
+        <div class={`particle particle-${i + 1}`}></div>
+      ))}
+    </div>
 
-          <main class="page">
-            <slot />
-            <Footer />
-          </main>
+    <Loader />
 
-          <div class="mail">
-            <a href="mailto:roulland.thomass@gmail.com">roulland.thomass@gmail.com</a>
-          </div>
-        </div>
-      </div>
-      
-      
+    <main class="page" id="scroll-container">
+      <slot />
+      <Footer />
+    </main>
+
+    <div class="mail">
+      <a href="mailto:roulland.thomass@gmail.com">roulland.thomass@gmail.com</a>
+    </div>
+
     <script type="module">
       import gsap from 'https://cdn.skypack.dev/gsap';
-      import { ScrollTrigger } from 'https://cdn.skypack.dev/gsap/ScrollTrigger';
-      import { ScrollSmoother } from 'https://cdn.skypack.dev/gsap/ScrollSmoother';
-
-      gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-
-      // Initialisation du smooth scroll avec GSAP
-      const smoother = ScrollSmoother.create({
-        wrapper: '#smooth-wrapper',
-        content: '#scroll-container',
-        smooth: 1.2,
-        effects: true,
-        normalizeScroll: true, // aide à normaliser le comportement de scroll
-        ignoreMobileResize: true // peut aider sur mobile
-      });
-
-      window.addEventListener('load', () => {
-        ScrollTrigger.refresh();
-        
-        smoother.refresh();
-      });
-
-      window.addEventListener('resize', () => {
-        setTimeout(() => {
-          ScrollTrigger.refresh();
-          smoother.refresh();
-        }, 200);
-      });
-
+      import ScrollToPlugin from 'https://cdn.skypack.dev/gsap/ScrollToPlugin';
+      gsap.registerPlugin(ScrollToPlugin);
 
       const sections = document.querySelectorAll('section:not(.loader)');
 
       function getAnimatableElements(section) {
         const selectors = [
           'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-          'p', 'a', 'span', 'img', 'svg',
+          'p', 'a', 'span',
+          'img', 'svg',
           '.card', '.project', '.skill',
-          'li', 'blockquote', 'button', '.btn',
+          'li', 'blockquote',
+          'button', '.btn',
           'form', 'input', 'textarea',
           '[data-animate]'
         ];
@@ -98,40 +69,62 @@
 
       sections.forEach(section => {
         const elements = getAnimatableElements(section);
-
-        gsap.set(elements, { opacity: 0, y: 60, scale: 0.95 });
-
-        ScrollTrigger.create({
-          trigger: section,
-          start: 'top 80%',
-          once: true,
-          onEnter: () => {
-            const tl = gsap.timeline();
-            elements.forEach((el, index) => {
-              tl.to(el, {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 0.8,
-                ease: "power3.out"
-              }, index * 0.08);
-            });
-          }
+        elements.forEach(el => {
+          gsap.set(el, { 
+            opacity: 0, 
+            y: 60,
+            scale: 0.95,
+            delay: Math.random() * 0.1
+          });
         });
       });
 
-      // Rotation infinie des SVGs
-      document.querySelectorAll('svg').forEach(svg => {
+      function animateSection(section) {
+        const elements = getAnimatableElements(section);
+        const tl = gsap.timeline();
+        elements.forEach((el, index) => {
+          const delay = index * 0.08;
+          tl.to(el, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: "power3.out",
+          }, delay);
+        });
+        return tl;
+      }
+
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '-10% 0px -10% 0px'
+      };
+
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+            animateSection(entry.target);
+            entry.target.classList.add('animated');
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(section => {
+        sectionObserver.observe(section);
+      });
+
+      const svgs = document.querySelectorAll('svg');
+      svgs.forEach((svg) => {
         gsap.to(svg, {
           rotation: 360,
           duration: 5,
           repeat: -1,
           ease: 'linear',
-          transformOrigin: '50% 50%'
+          transformOrigin: '50% 50%',
         });
       });
 
-      // ==== CODE DU MENU BURGER ====
+      // ==== MENU ====
       const burger = document.querySelector('.burger');
       const checkbox = document.querySelector('#openMenu');
       const nav = document.querySelector('#menuNav');
@@ -152,8 +145,8 @@
         },
         ease: {
           in: "power3.inOut",
-          out: "power3.out",
-          items: "back.out(1.4)"
+          out: "power3.out", 
+          items: "back.out(1.4)"  
         },
         stagger: 0.08,
         delay: {
@@ -169,13 +162,13 @@
           ease: animConfig.ease.out,
           pointerEvents: 'auto'
         });
-
+        
         gsap.to(nav, {
           x: 0,
           duration: animConfig.duration.nav,
           ease: animConfig.ease.out
         });
-
+        
         gsap.to(navItems, {
           opacity: 1,
           y: 0,
@@ -184,7 +177,7 @@
           stagger: animConfig.stagger,
           delay: animConfig.delay.items
         });
-
+        
         gsap.to(contact, {
           opacity: 1,
           y: 0,
@@ -221,12 +214,7 @@
 
       checkbox.addEventListener('change', () => {
         burger.style.pointerEvents = 'none';
-        if (checkbox.checked) {
-          openMenu();
-        } else {
-          closeMenu();
-        }
-
+        checkbox.checked ? openMenu() : closeMenu();
         setTimeout(() => {
           burger.style.pointerEvents = 'auto';
         }, animConfig.duration.nav * 1000);
@@ -243,42 +231,39 @@
           const href = link.getAttribute('href');
           const isInternalLink = href && (href.startsWith('#') || href === '');
 
+          checkbox.checked = false;
+          checkbox.dispatchEvent(new Event('change'));
+
           if (isInternalLink) {
             e.preventDefault();
-            checkbox.checked = false;
-            checkbox.dispatchEvent(new Event('change'));
 
             setTimeout(() => {
               const targetId = href.substring(1);
               const target = document.getElementById(targetId);
-
               if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
+                gsap.to(window, {
+                  duration: 1.5, // ⬅️ ajuste cette valeur pour la vitesse
+                  scrollTo: target,
+                  ease: "power2.out"
+                });
               } else {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                gsap.to(window, {
+                  duration: 1.5,
+                  scrollTo: 0,
+                  ease: "power2.out"
+                });
               }
             }, 300);
-          } else {
-            checkbox.checked = false;
-            checkbox.dispatchEvent(new Event('change'));
           }
         });
       });
 
       burger.addEventListener('mouseenter', () => {
-        gsap.to(burger, {
-          scale: 1.05,
-          duration: 0.3,
-          ease: "power2.out"
-        });
+        gsap.to(burger, { scale: 1.05, duration: 0.3, ease: "power2.out" });
       });
 
       burger.addEventListener('mouseleave', () => {
-        gsap.to(burger, {
-          scale: 1,
-          duration: 0.3,
-          ease: "power2.out"
-        });
+        gsap.to(burger, { scale: 1, duration: 0.3, ease: "power2.out" });
       });
 
       burger.addEventListener('click', () => {
@@ -290,7 +275,17 @@
           ease: "power1.in"
         });
       });
-    </script>
 
-    </body>
-  </html>
+      // Animation d'entrée initiale
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const firstSection = sections[0];
+          if (firstSection && firstSection.getBoundingClientRect().top < window.innerHeight * 0.8) {
+            animateSection(firstSection);
+            firstSection.classList.add('animated');
+          }
+        }, 100);
+      });
+    </script>
+  </body>
+</html>
