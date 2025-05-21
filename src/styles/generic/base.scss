@@ -3,7 +3,7 @@
 
 $particle-size: 2px;
 $particle-color: #b5b5b5; // Couleur des particules (blanc translucide)
-$particle-speed: 20; // Durée de l'animation des particules (en secondes)
+$particle-speed: 15; // Durée de l'animation des particules (en secondes)
 
 // Fonction pour obtenir une durée aléatoire en secondes
 @function random-duration($max-duration) {
@@ -11,18 +11,11 @@ $particle-speed: 20; // Durée de l'animation des particules (en secondes)
 }
 
 html, body {
+  margin: 0;
+  padding: 0;
   height: 100%;
-  overflow: hidden;
 }
-/* Sur mobile, réactiver le scroll */
-@media only screen and (max-width: 768px) {
-  html, body {
-    overflow: auto;
-  }
-}
-[data-scroll-container] {
-  overflow: hidden;
-}
+
 body {
   margin: 0;
   padding: 0;
@@ -35,7 +28,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: 0;
     pointer-events: none;
   }
   
@@ -59,7 +52,7 @@ body {
       border-radius: 50%;
       top: math.random() * 100%;
       left: math.random() * 100%;
-      animation: dustParticleMove $particle-speed + math.random() * 3s linear infinite;
+      animation: dustParticleMove #{math.random() * 2 + $particle-speed}s linear infinite;
       animation-delay: random-duration($particle-speed);
     }
   }
