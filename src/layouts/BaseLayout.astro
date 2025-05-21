@@ -283,33 +283,6 @@
           checkbox.dispatchEvent(new Event('change'));
         });
 
-        function smoothScrollTo(targetElement, duration = 1000) {
-          const startY = window.scrollY;
-          const targetY = targetElement.getBoundingClientRect().top + startY;
-          const distance = targetY - startY;
-          let startTime = null;
-
-          function scrollStep(timestamp) {
-            if (!startTime) startTime = timestamp;
-            const timeElapsed = timestamp - startTime;
-            const progress = Math.min(timeElapsed / duration, 1);
-
-            // Ease-in-out cubic
-            const easing = progress < 0.5
-            ? 4 * progress * progress * progress
-            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-
-            window.scrollTo(0, startY + distance * easing);
-
-            if (progress < 1) {
-              window.requestAnimationFrame(scrollStep);
-            }
-          }
-
-          window.requestAnimationFrame(scrollStep);
-        }
-
-
         // Fermer le menu quand on clique sur un lien
         const menuLinks = nav.querySelectorAll('a');
         const isMobile = window.innerWidth <= 768;
@@ -337,7 +310,7 @@
                     });
                   } else {
                     // Mobile → scroll natif
-                    smoothScrollTo(target, 1500);
+                    target.scrollIntoView({ behavior: 'smooth' });
                   }
                 } else {
                   // Scroll to top si pas de cible
