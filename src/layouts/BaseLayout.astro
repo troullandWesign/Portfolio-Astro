@@ -55,7 +55,7 @@
         function getAnimatableElements(section) {
           const selectors = [
             'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-            'p', 'span', 'a',
+            'p', 'a', 'span',
             'img', 'svg',
             '.card', '.project', '.skill',
             'li', 'blockquote',
@@ -150,6 +150,19 @@
                 overwrite: 'auto'
               });
             }
+          });
+        });
+
+        const svgs = document.querySelectorAll('svg');
+
+        // Lance l'animation de rotation infinie
+        svgs.forEach((svg) => {
+          gsap.to(svg, {
+            rotation: 360,
+            duration: 5,
+            repeat: -1,
+            ease: 'linear',
+            transformOrigin: '50% 50%',
           });
         });
 

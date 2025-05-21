@@ -9,9 +9,9 @@ $nbCol: 12;
 // Mise en place de la grille principale
 .base {
   display: grid;
-  grid-template-columns: [gutter-l] minmax(100px, 7.5%) [container] 1fr [gutter-r] minmax(100px, 7.5%);
+  grid-template-columns: [gutter-l] minmax(25px, 7.5%) [container] 1fr [gutter-r] minmax(25px, 7.5%);
 
-  @include min(lg){
+  @include min(md){
     grid-template-columns: [gutter-l] 20vw [container] 1fr [gutter-r] 20vw;
   } 
 

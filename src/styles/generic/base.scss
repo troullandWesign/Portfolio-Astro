@@ -10,15 +10,12 @@ $particle-speed: 20; // Durée de l'animation des particules (en secondes)
   @return math.random() * $max-duration; // Utiliser math.random() pour générer une valeur aléatoire
 }
 
-  html, body {
-    height: 100%;
-    overflow: hidden;
-  }
-  [data-scroll-container] {
-    overflow: hidden;
-  }
-  section {
-  will-change: opacity, transform;
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+[data-scroll-container] {
+  overflow: hidden;
 }
 body {
   margin: 0;

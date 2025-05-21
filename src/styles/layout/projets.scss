@@ -1,0 +1,16 @@
+article {
+    margin-top: 20vh;
+    h1 {
+        font-size: 2.25rem;
+        margin-bottom: 2.25rem;
+    }
+    .year,.stack,.description,.role,.interventions {
+        margin-bottom: 1.75rem;
+    }
+    .titre-content {
+        margin-bottom: .75rem;
+        font-family: var(--font-title);
+        font-size: 1rem;
+        font-weight: normal;
+    }
+}

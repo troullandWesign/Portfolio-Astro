@@ -1,10 +1,4 @@
 ---
-import axios from 'axios';
-
-// Récupérer la page d’accueil par son slug (ex: 'accueil')
-const response = await axios.get('http://thomas-roulland.local/wp-json/wp/v2/pages?slug=home');
-const page = response.data[0]; // c’est un tableau, on prend le premier élément
-
 import Layout from '../layouts/BaseLayout.astro';
 ---
 
@@ -55,8 +49,11 @@ import Layout from '../layouts/BaseLayout.astro';
 
   <section class="stacks base" id="stacks">
     <div class="container">
-      <div>
-        <p>MES STACKS</p>
+      <div class="titre-section">
+        <p>
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" zoomAndPan="magnify" viewBox="0 0 375 374.999991" height="30" preserveAspectRatio="xMidYMid meet" version="1.0"><path fill="white" d="M 374.96875 187.484375 C 234.355469 213.371094 213.371094 234.355469 187.484375 374.96875 C 161.597656 234.355469 140.613281 213.371094 0 187.484375 C 140.613281 161.597656 161.597656 140.613281 187.484375 0 C 213.371094 140.613281 234.355469 161.597656 374.96875 187.484375 Z M 374.96875 187.484375 " fill-opacity="1" fill-rule="nonzero"/></svg>
+          MES STACKS
+        </p>
       </div>      
       <div class="category">
         <h3>FRONTEND</h3>
@@ -107,7 +104,10 @@ import Layout from '../layouts/BaseLayout.astro';
   <section class="experiences base" id="experiences">
     <div class="container">
       <div class="titre-section">
-        <p>MON EXPERIENCE</p>
+        <p>
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" zoomAndPan="magnify" viewBox="0 0 375 374.999991" height="30" preserveAspectRatio="xMidYMid meet" version="1.0"><path fill="white" d="M 374.96875 187.484375 C 234.355469 213.371094 213.371094 234.355469 187.484375 374.96875 C 161.597656 234.355469 140.613281 213.371094 0 187.484375 C 140.613281 161.597656 161.597656 140.613281 187.484375 0 C 213.371094 140.613281 234.355469 161.597656 374.96875 187.484375 Z M 374.96875 187.484375 " fill-opacity="1" fill-rule="nonzero"/></svg>
+          MON EXPERIENCE
+        </p>
       </div>      
       <div class="experience">
         <p class="entreprise">WESIGN</p>
@@ -130,13 +130,16 @@ import Layout from '../layouts/BaseLayout.astro';
   <section class="projets base" id="projets">
     <div class="container">
       <div class="titre-section">
-        <p>MES PROJETS</p>
+        <p>
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" zoomAndPan="magnify" viewBox="0 0 375 374.999991" height="30" preserveAspectRatio="xMidYMid meet" version="1.0"><path fill="white" d="M 374.96875 187.484375 C 234.355469 213.371094 213.371094 234.355469 187.484375 374.96875 C 161.597656 234.355469 140.613281 213.371094 0 187.484375 C 140.613281 161.597656 161.597656 140.613281 187.484375 0 C 213.371094 140.613281 234.355469 161.597656 374.96875 187.484375 Z M 374.96875 187.484375 " fill-opacity="1" fill-rule="nonzero"/></svg>
+          MES PROJETS
+        </p>
       </div>      
       <div class="listing-projets">
         <div class="projet">
           <p class="number">_01.</p>
           <div class="content">
-             <p class="nom-projet">Lerat Location</p>
+             <a href="/projets/leratLocation" class="nom-projet">Lerat Location</a>
               <div class="stacks">
                 <span>Wordpress</span>
                 <span>Twig</span>
@@ -149,7 +152,7 @@ import Layout from '../layouts/BaseLayout.astro';
         <div class="projet">
           <p class="number">_02.</p>
           <div class="content">
-            <p class="nom-projet">Praticima</p>
+            <a href="/projets/praticima" class="nom-projet">Praticima</a>
             <div class="stacks">
               <span>Wordpress</span>
               <span>Twig</span>
@@ -162,7 +165,7 @@ import Layout from '../layouts/BaseLayout.astro';
         <div class="projet">
           <p class="number">_03.</p>
           <div class="content">
-            <p class="nom-projet">Byron Parfums</p>
+            <a href="/projets/byronParfums" class="nom-projet">Byron Parfums</a>
             <div class="stacks">
               <span>Wordpress</span>
               <span>Twig</span>
@@ -176,7 +179,7 @@ import Layout from '../layouts/BaseLayout.astro';
         <div class="projet">
           <p class="number">_04.</p>
           <div class="content"> 
-             <p class="nom-projet">Normandie Challenge </p>
+             <a href="/projets/normandieChallenge" class="nom-projet">Normandie Challenge </a>
             <div class="stacks">
               <span>Wordpress</span>
               <span>Twig</span>
