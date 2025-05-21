@@ -285,42 +285,44 @@
 
         // Fermer le menu quand on clique sur un lien
         const menuLinks = nav.querySelectorAll('a');
+        const isMobile = window.innerWidth <= 768;
         menuLinks.forEach(link => {
           link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
             const isInternalLink = href && (href.startsWith('#') || href === '');
-            
+
             if (isInternalLink) {
               e.preventDefault();
-            
               checkbox.checked = false;
               checkbox.dispatchEvent(new Event('change'));
-              
+
               setTimeout(() => {
                 const targetId = href.substring(1);
-                
-                if (targetId) {
-                  // Utiliser l'API de Locomotive Scroll pour scroller vers l'élément
-                  const locomotiveScroll = window.locomotiveScroll || scroll;
-                  
-                  if (locomotiveScroll) {
-                    locomotiveScroll.scrollTo(`#${targetId}`, {
+                const target = document.getElementById(targetId);
+
+                if (target) {
+                  if (!isMobile && window.locomotiveScroll) {
+                    // Desktop → Locomotive Scroll
+                    window.locomotiveScroll.scrollTo(target, {
                       offset: 0,
-                      duration: 1000, 
-                      easing: [0.25, 0.00, 0.35, 1.00]
+                      duration: 1000,
+                      easing: [0.25, 0.00, 0.35, 1.00],
                     });
+                  } else {
+                    // Mobile → scroll natif
+                    target.scrollIntoView({ behavior: 'smooth' });
                   }
                 } else {
-                  const locomotiveScroll = window.locomotiveScroll || scroll;
-                  if (locomotiveScroll) {
-                    locomotiveScroll.scrollTo(0, {
-                      duration: 1000,
-                      easing: [0.25, 0.00, 0.35, 1.00]
-                    });
+                  // Scroll to top si pas de cible
+                  if (!isMobile && window.locomotiveScroll) {
+                    window.locomotiveScroll.scrollTo(0);
+                  } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                   }
                 }
-              }, 300);
+              }, 300); // Laisse le temps au menu de se fermer
             } else {
+              // Lien externe → juste fermeture du menu
               checkbox.checked = false;
               checkbox.dispatchEvent(new Event('change'));
             }
