@@ -44,7 +44,12 @@
         const scroll = new LocomotiveScroll({
           el: document.querySelector('#scroll-container'),
           smooth: true,
-          multiplier: 1,
+          smartphone: {
+            smooth: false, // Désactive le défilement personnalisé sur mobile
+          },
+          tablet: {
+            smooth: false, // Désactive le défilement personnalisé sur tablette
+          },
         });
 
         // Rendre l'instance accessible globalement pour les autres parties du code

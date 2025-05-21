@@ -12,13 +12,7 @@ $particle-speed: 20; // Durée de l'animation des particules (en secondes)
 
 html, body {
   height: 100%;
-  overflow: hidden;
-}
-/* Sur mobile, réactiver le scroll */
-@media only screen and (max-width: 768px) {
-  html, body {
-    overflow: auto;
-  }
+  overflow-x: hidden;
 }
 [data-scroll-container] {
   overflow: hidden;
