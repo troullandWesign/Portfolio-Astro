@@ -63,7 +63,7 @@
             'li', 'blockquote',
             'button', '.btn',
             'form', 'input', 'textarea',
-            '[data-animate]' // Pour les éléments avec un attribut spécifique
+            '[data-animate]'
           ];
           
           const elements = [];
@@ -88,7 +88,6 @@
               opacity: 0, 
               y: 60,
               scale: 0.95,
-              // Ajouter un délai aléatoire léger pour plus de naturel
               delay: Math.random() * 0.1
             });
           });
@@ -98,12 +97,10 @@
         function animateSection(section) {
           const elements = getAnimatableElements(section);
           
-          // Créer une timeline pour plus de contrôle
           const tl = gsap.timeline();
           
-          // Animer chaque élément avec un stagger personnalisé
           elements.forEach((el, index) => {
-            const delay = index * 0.08; // Délai entre chaque élément
+            const delay = index * 0.08;
             
             tl.to(el, {
               opacity: 1,
@@ -139,12 +136,10 @@
 
         // Gérer le scroll avec Locomotive
         scroll.on('scroll', (instance) => {
-          // Optionnel : ajouter des effets de parallax ou autres
           sections.forEach(section => {
             const bounds = section.getBoundingClientRect();
             const progress = (window.innerHeight - bounds.top) / (window.innerHeight + bounds.height);
             
-            // Ajuster l'opacité légèrement en fonction du scroll
             if (section.classList.contains('animated')) {
               gsap.to(section, {
                 opacity: Math.max(0.3, 1 - progress * 0.3),
@@ -192,9 +187,9 @@
           ease: {
             in: "power3.inOut",
             out: "power3.out", 
-            items: "back.out(1.4)"  // Effet légèrement élastique pour les éléments du menu
+            items: "back.out(1.4)"  
           },
-          stagger: 0.08,  // Délai entre chaque élément pour une cascade plus naturelle
+          stagger: 0.08,
           delay: {
             items: 0.3,
             contact: 0.5
@@ -203,7 +198,6 @@
 
         // Fonction d'ouverture avec animation améliorée
         function openMenu() {
-          // Première étape: fondu de l'overlay
           gsap.to(overlay, {
             opacity: 0.95,
             duration: animConfig.duration.overlay,
@@ -211,14 +205,12 @@
             pointerEvents: 'auto'
           });
           
-          // Deuxième étape: le menu glisse de la droite
           gsap.to(nav, {
             x: 0,
             duration: animConfig.duration.nav,
             ease: animConfig.ease.out
           });
           
-          // Troisième étape: les éléments du menu apparaissent en cascade
           gsap.to(navItems, {
             opacity: 1,
             y: 0,
@@ -228,7 +220,6 @@
             delay: animConfig.delay.items
           });
           
-          // Quatrième étape: le bloc contact apparaît
           gsap.to(contact, {
             opacity: 1,
             y: 0,
@@ -240,9 +231,7 @@
 
         // Fonction de fermeture avec animation améliorée
         function closeMenu() {
-          // Animation des éléments dans l'ordre inverse pour une fermeture naturelle
-          
-          // D'abord, les éléments du menu et le contact disparaissent
+
           gsap.to([...navItems, contact], {
             opacity: 0,
             y: 15,
@@ -251,7 +240,6 @@
             stagger: animConfig.stagger / 2
           });
           
-          // Ensuite, le menu glisse vers la droite
           gsap.to(nav, {
             x: '100%',
             duration: animConfig.duration.nav * 0.8,
@@ -259,7 +247,6 @@
             delay: 0.2
           });
           
-          // Enfin, l'overlay disparaît en fondu
           gsap.to(overlay, {
             opacity: 0,
             duration: animConfig.duration.overlay * 0.8,
@@ -271,7 +258,6 @@
 
         // Listener sur la checkbox
         checkbox.addEventListener('change', () => {
-          // Prévenir les clics multiples pendant l'animation
           burger.style.pointerEvents = 'none';
           
           if (checkbox.checked) {
@@ -296,35 +282,30 @@
         const menuLinks = nav.querySelectorAll('a');
         menuLinks.forEach(link => {
           link.addEventListener('click', (e) => {
-            // Vérifier si c'est un lien interne (commence par #)
             const href = link.getAttribute('href');
             const isInternalLink = href && (href.startsWith('#') || href === '');
             
             if (isInternalLink) {
-              // Pour les liens internes, on empêche le comportement par défaut
               e.preventDefault();
-              
-              // On ferme d'abord le menu
+            
               checkbox.checked = false;
               checkbox.dispatchEvent(new Event('change'));
               
-              // Utiliser Locomotive Scroll pour naviguer vers l'ancre
               setTimeout(() => {
-                const targetId = href.substring(1); // Enlève le # du href
+                const targetId = href.substring(1);
                 
                 if (targetId) {
                   // Utiliser l'API de Locomotive Scroll pour scroller vers l'élément
-                  const locomotiveScroll = window.locomotiveScroll || scroll; // Récupérer l'instance de Locomotive Scroll
+                  const locomotiveScroll = window.locomotiveScroll || scroll;
                   
                   if (locomotiveScroll) {
                     locomotiveScroll.scrollTo(`#${targetId}`, {
                       offset: 0,
-                      duration: 1000, // durée de l'animation en ms
-                      easing: [0.25, 0.00, 0.35, 1.00] // courbe d'animation
+                      duration: 1000, 
+                      easing: [0.25, 0.00, 0.35, 1.00]
                     });
                   }
                 } else {
-                  // Si href est "#" ou "", on scroll vers le haut avec Locomotive
                   const locomotiveScroll = window.locomotiveScroll || scroll;
                   if (locomotiveScroll) {
                     locomotiveScroll.scrollTo(0, {
@@ -333,17 +314,14 @@
                     });
                   }
                 }
-              }, 300); // Délai pour permettre au menu de commencer à se fermer
+              }, 300);
             } else {
-              // Pour les liens externes, on ferme juste le menu
-              // La navigation se fera normalement
               checkbox.checked = false;
               checkbox.dispatchEvent(new Event('change'));
             }
           });
         });
 
-        // Animation du burger menu pour améliorer l'expérience utilisateur
         burger.addEventListener('mouseenter', () => {
           gsap.to(burger, {
             scale: 1.05,
@@ -360,7 +338,6 @@
           });
         });
 
-        // Animation du clic sur le burger
         burger.addEventListener('click', () => {
           gsap.to(burger, {
             scale: 0.95,
@@ -374,8 +351,7 @@
         // Animation d'entrée pour la première section visible
         window.addEventListener('load', () => {
           scroll.update();
-          
-          // Animer immédiatement la première section si elle est visible
+        
           setTimeout(() => {
             const firstSection = sections[0];
             if (firstSection) {
