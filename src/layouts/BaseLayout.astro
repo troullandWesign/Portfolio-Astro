@@ -15,7 +15,7 @@ const { title = 'ROULLAND Thomas' } = Astro.props;
     <meta name="description" content="Portfolio de Thomas Roulland, développeur web spécialisé dans le frontend." />
     <link rel="icon" href="/favicon-32x32.png" type="image/x-icon" />
   </head>
-  <body>
+  <body class="no-scroll">
     <Header />
 
     <canvas id="particles"></canvas>
@@ -95,7 +95,6 @@ const { title = 'ROULLAND Thomas' } = Astro.props;
 
         draw() {
           ctx.save();
-          //ctx.filter = `blur(${this.blur}px)`; // Le flou dégrade les performances, donc on l'a commenté
           ctx.fillStyle = this.color; // Utilise la couleur des particules (blanc avec 50% opacité)
           ctx.beginPath();
           ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -373,6 +372,9 @@ const { title = 'ROULLAND Thomas' } = Astro.props;
 
       // Animation d'entrée initiale
       window.addEventListener('load', () => {
+        setTimeout(() => {
+          document.body.classList.remove('no-scroll');
+        }, 4000);
         setTimeout(() => {
           const firstSection = sections[0];
           if (firstSection && firstSection.getBoundingClientRect().top < window.innerHeight * 0.8) {
