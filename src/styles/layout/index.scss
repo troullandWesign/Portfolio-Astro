@@ -365,6 +365,14 @@ footer {
             grid-template-columns: 30% 70%;
         }
     }
+
+    section.projets {
+        img {
+            width: 200px;
+            height: 350px;
+            right: -100px;
+        }
+    }
 }
 
 @media screen and (max-width: 992px) {
