@@ -159,7 +159,41 @@ section.experiences {
         }
     }
 }
+
 section.projets {
+    img {
+        width: 300px;
+        height: 450px;
+        object-fit: cover;
+        position: absolute;
+        right: 0;
+        opacity: 0;
+        top: -80px;
+        // Animation fluide pour l'apparition/disparition
+        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transform: translateX(30px) scale(0.9);
+        filter: blur(8px);
+        z-index: 5;
+        
+        // Animation de "respiration" subtile quand visible
+        &.visible {
+            animation: breathe 4s ease-in-out infinite;
+        }
+    }
+    
+    .content {
+        &:hover + img {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            filter: blur(0px);
+            
+            // Ajouter une ombre portée au hover
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(255, 255, 255, 0.1);
+        }
+    }
+    
     .titre-section {
         margin-bottom: 3.5rem;
         p {
@@ -168,29 +202,50 @@ section.projets {
             gap: 10px;
         }
     }
+    
     .listing-projets {
         &:hover {
             .projet {
-            opacity: 0.5;
+                opacity: 0.5;
 
-            &:hover {
-                opacity: 1;
-            }
+                &:hover {
+                    opacity: 1;
+                }
             }
         }
+        
         .projet {
             transition: opacity 0.3s ease;
             border-bottom: 1px solid #3c3c3c;
             padding-bottom: 1.25rem;
             display: flex;
             gap: 1rem;
+            position: relative;
+            
             &:hover {
-            opacity: 1;
+                opacity: 1;
+                
+                // Animation subtile du contenu au hover
+                .content {
+                    transform: translateX(10px);
+                    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                }
             }
+            
             .number {
                 padding-top: 1rem;
                 font-family: var(--font-title);
+                transition: color 0.3s ease;
+                
+                .projet:hover & {
+                    color: $primary-color;
+                }
             }
+            
+            .content {
+                transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+            
             .nom-projet {
                 font-family: var(--font-title);
                 text-transform: uppercase;
@@ -200,29 +255,55 @@ section.projets {
                 background-position: 100% 0;
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
-                transition: background-position 1s ease;
+                transition: background-position 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                 text-decoration: none;
-            &:hover {
-                background-position: 0 0;
+                
+                &:hover {
+                    background-position: 0 0;
+                }
             }
-            }
+            
             .stacks {
                 span {
-                    position: relative; // utile si nécessaire
+                    position: relative;
                     margin-right: 10px;
+                    transition: all 0.3s ease;
+                    
                     &:not(:last-child)::after {
-                    content: "";
-                    display: inline-block;
-                    height: 5px;
-                    width: 5px;
-                    background-color: $primary-color;
-                    border-radius: 100%;
-                    margin-left: 10px;
-                    vertical-align: middle; 
+                        content: "";
+                        display: inline-block;
+                        height: 5px;
+                        width: 5px;
+                        background-color: $primary-color;
+                        border-radius: 100%;
+                        margin-left: 10px;
+                        vertical-align: middle;
+                        transition: all 0.3s ease;
+                    }
+                    
+                    // Animation au hover du projet parent
+                    .projet:hover & {
+                        transform: translateY(-2px);
+                        color: #c5c4c4;
+                        
+                        &:not(:last-child)::after {
+                            transform: scale(1.2);
+                            box-shadow: 0 0 8px $primary-color;
+                        }
                     }
                 }
             }
         }
+    }
+}
+
+// Animation de "respiration" pour les images
+@keyframes breathe {
+    0%, 100% {
+        transform: translateX(0) scale(1);
+    }
+    50% {
+        transform: translateX(0) scale(1.02);
     }
 }
 footer {
@@ -345,6 +426,9 @@ footer {
                     font-size: 2.75rem;
                 }
             }
+        }
+         img {
+            display: none;
         }
     }
     footer a {

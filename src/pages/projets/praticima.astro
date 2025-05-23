@@ -6,7 +6,16 @@ import Layout from '../../layouts/BaseLayout.astro';
     <section class="base">
         <div class="container">
             <article>
-                <h1>🏥 Praticima</h1>
+                <a href="/" class="back">
+                    <span style=" stroke-width: 10;">
+                        <svg style="transform: rotate(270deg);" width="20" height="20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M40.0388 13.1699L40.0427 38.963M40.0427 39.0001L40.0427 67.0001" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M12 39.0002L36.2877 14.7125C38.3379 12.6622 41.6621 12.6622 43.7123 14.7125L68 39.0002" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    retour
+                </a>
+                <h1>🏥 <a href="https://www.praticima.com/">Praticima</a></h1>
 
                 <div class="year">
                     <p class="titre-content"><strong>Année :</strong></p>
@@ -48,7 +57,11 @@ import Layout from '../../layouts/BaseLayout.astro';
                     </ul>
                 </div>
                 </article>
-
+                <div class="imgs">
+                    <img src="/praticima.png" alt="Praticima" loading="lazy"/>
+                    <img  src="/praticima2.png" alt="Praticima" loading="lazy"/>
+                    <img class="full" src="/praticima3.png" alt="Praticima" loading="lazy"/>
+                </div>
         </div>
     </section>
 </Layout>
