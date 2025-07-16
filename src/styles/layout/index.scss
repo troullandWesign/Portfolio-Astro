@@ -163,9 +163,9 @@ section.experiences {
 
 section.projets {
     img {
-        width: 300px;
+        width: 350px;
         height: 450px;
-        object-fit: cover;
+        object-fit: contain;
         position: absolute;
         right: 0;
         opacity: 0;
