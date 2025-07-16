@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+---
+
+<Layout>
+  <section class="base">
+    <div class="container">
+      <article>
+        <a href="/" class="back">
+          <span style="stroke-width: 10;">
+            <svg style="transform: rotate(270deg);" width="20" height="20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M40.0388 13.1699L40.0427 38.963M40.0427 39.0001L40.0427 67.0001" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M12 39.0002L36.2877 14.7125C38.3379 12.6622 41.6621 12.6622 43.7123 14.7125L68 39.0002" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          retour
+        </a>
+
+        <h1>🔍 Tech Debt Checker</h1>
+
+        <div class="year">
+          <p class="titre-content">Année :</p>
+          <p>2024</p>
+        </div>
+
+        <div class="stack">
+          <p class="titre-content">Tech & Stack</p>
+          <p>WordPress (plugin), PHP, JavaScript / JQUERY / AJAX, JSON, CLI, NPM / NODE</p>
+        </div>
+
+        <div class="description">
+          <h3 class="titre-content">Description</h3>
+          <p><strong>Tech Debt Checker</strong> est un <strong>plugin WordPress sur-mesure</strong> conçu pour analyser les dépendances d’un thème personnalisé. Il lit le fichier <code>package.json</code> d’un thème, vérifie si les dépendances sont à jour et permet de les mettre à jour rapidement via le terminal.</p>
+          <p>Ce plugin s’intègre dans un workflow de développement WordPress moderne (starter thème avec npm/yarn) et permet de garder une base saine, performante et maintenable.</p>
+          <p>Le projet est en cours d’évolution avec pour objectif l’ajout d’un <strong>dashboard visuel</strong> pour noter la santé technique d’un thème (avant / après mise à jour, score de dette technique, suivi de version, etc.).</p>
+        </div>
+
+        <div class="interventions">
+          <h3 class="titre-content">Mes interventions</h3>
+          <ul>
+            <li>📦 <strong>Analyse package.json :</strong> récupération automatique des dépendances d’un thème WordPress</li>
+            <li>🕵️‍♂️ <strong>Audit :</strong> comparaison des versions locales avec les dernières disponibles via le registre npm</li>
+            <li>⚙️ <strong>Mise à jour :</strong> sélection et mise à jour ciblée des packages souhaités</li>
+            <li>💻 <strong>Interface CLI :</strong> outil utilisable en ligne de commande dans n’importe quel projet</li>
+            <li>🚧 <strong>Améliorations prévues :</strong> ajout d’un système de scoring, UI dashboard, export comparatif</li>
+          </ul>
+        </div>
+
+        <div class="role">
+          <h3 class="titre-content">Mon rôle</h3>
+          <ul>
+            <li><strong>Développeur WordPress :</strong> création complète du plugin en lien avec l’environnement d’un thème WordPress</li>
+            <li>Développement de la logique de parsing, vérification, tri et mise à jour des dépendances</li>
+            <li>Préparation d’une interface CLI ergonomique pour simplifier l’usage dans des projets client</li>
+            <li>Prévisions de développement d’un dashboard graphique pour l’analyse continue des projets</li>
+          </ul>
+        </div>
+      </article>
+
+      <div class="imgs">
+        <img class="full" src="/tech-full.png" alt="Exemple complet Tech Debt Checker" loading="lazy"/>
+      </div>
+    </div>
+  </section>
+</Layout>

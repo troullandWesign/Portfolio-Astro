@@ -151,6 +151,7 @@ section.experiences {
             line-height: 1.75rem;
         }
         .poste {
+            color: #01A7F3;
             font-size: 3rem;
             line-height: 1;
             font-family: var(--font-title);
@@ -187,10 +188,7 @@ section.projets {
             transform: translateX(0) scale(1);
             filter: blur(0px);
             
-            // Ajouter une ombre portée au hover
-            box-shadow: 
-                0 25px 50px -12px rgba(0, 0, 0, 0.5),
-                0 0 30px rgba(255, 255, 255, 0.1);
+            
         }
     }
     
@@ -368,9 +366,11 @@ footer {
 
     section.projets {
         img {
-            width: 200px;
+            width: 250px;
             height: 350px;
             right: -100px;
+            object-fit: contain;
+            background-color: transparent;
         }
     }
 }
@@ -522,5 +522,11 @@ footer {
     }
     .mail {
         display: none;
+    }
+}
+
+ul.description {
+    li {
+        margin-bottom: 0.5rem;
     }
 }

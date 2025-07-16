@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+---
+
+<Layout>
+  <section class="base">
+    <div class="container">
+      <article>
+        <a href="/" class="back">
+          <span style="stroke-width: 10;">
+            <svg style="transform: rotate(270deg);" width="20" height="20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M40.0388 13.1699L40.0427 38.963M40.0427 39.0001L40.0427 67.0001" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M12 39.0002L36.2877 14.7125C38.3379 12.6622 41.6621 12.6622 43.7123 14.7125L68 39.0002" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          retour
+        </a>
+
+        <h1>🛡️ <a href="https://github.com/troullandWesign/Astro-Strapi">CRUD Champion</a></h1>
+
+        <div class="year">
+          <p class="titre-content">Année :</p>
+          <p>2025</p>
+        </div>
+
+        <div class="stack">
+          <p class="titre-content">Tech & Stack</p>
+          <p>Astro, Strapi, TypeScript, Tailwind</p>
+        </div>
+
+        <div class="description">
+          <h3 class="titre-content">Description</h3>
+          <p><strong>CRUD Champion</strong> est un projet personnel simple et efficace qui m’a permis de m’initier à l’utilisation de <strong>Strapi</strong> en tant que CMS Headless, en l’intégrant à un front Astro. L'application permet d’ajouter, modifier, supprimer et afficher des champions de League of Legends, avec leurs rôles et leurs coûts.</p>
+        </div>
+
+        <div class="interventions">
+          <h3 class="titre-content">Mes interventions</h3>
+          <ul>
+            <li>⚙️ <strong>Configuration Strapi :</strong> mise en place du modèle de contenu pour les champions (nom, rôle, coût)</li>
+            <li>📡 <strong>Connexion API :</strong> récupération et manipulation des données avec appels HTTP</li>
+            <li>🧾 <strong>Fonctionnalités CRUD :</strong> ajout, modification et suppression des entrées via interface</li>
+            <li>💅 <strong>UI :</strong> mise en page avec Tailwind, design simple et clair</li>
+            <li>🧪 <strong>Apprentissage :</strong> projet conçu pour tester l'intégration d’un backend Strapi avec un front Astro typé TypeScript</li>
+          </ul>
+        </div>
+
+        <div class="role">
+          <h3 class="titre-content">Mon rôle</h3>
+          <ul>
+            <li><strong>Développeur Fullstack :</strong> création du backend Strapi et intégration complète dans Astro</li>
+            <li>Utilisation de TypeScript pour plus de robustesse côté front</li>
+            <li>Développement d’un système CRUD simple pour gérer une base de données de champions</li>
+            <li>Organisation propre du code, composants réutilisables et découplage clair entre front et back</li>
+          </ul>
+        </div>
+      </article>
+
+      <div class="imgs">
+        <img src="/champ1.png" alt="Liste des champions" loading="lazy"/>
+        <img src="/champ2.png" alt="Formulaire d'ajout" loading="lazy"/>
+        <img class="full" src="/champ-full.png" alt="Dashboard CRUD Champion" loading="lazy"/>
+      </div>
+    </div>
+  </section>
+</Layout>

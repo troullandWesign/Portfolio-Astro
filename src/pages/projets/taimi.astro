@@ -1,0 +1,66 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+---
+
+<Layout>
+  <section class="base">
+    <div class="container">
+      <article>
+        <a href="/" class="back">
+          <span style="stroke-width: 10;">
+            <svg style="transform: rotate(270deg);" width="20" height="20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M40.0388 13.1699L40.0427 38.963M40.0427 39.0001L40.0427 67.0001" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M12 39.0002L36.2877 14.7125C38.3379 12.6622 41.6621 12.6622 43.7123 14.7125L68 39.0002" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          retour
+        </a>
+
+        <h1>🏓 <a href="https://github.com/Robitch/workshop-tamy">Taimi</a></h1>
+
+        <div class="year">
+          <p class="titre-content">Année :</p>
+          <p>2025</p>
+        </div>
+
+        <div class="stack">
+          <p class="titre-content">Tech & Stack</p>
+          <p>Laravel, Blade, API, Tailwind, SCSS</p>
+        </div>
+
+        <div class="description">
+          <h3 class="titre-content">Description</h3>
+          <p><strong>Taimi</strong> est un CRM sur-mesure destiné aux clubs de padel pour leur permettre de gérer facilement les réservations de terrains, les joueurs inscrits, ainsi que les classements basés sur les résultats de matchs. Une interface moderne et performante pensée pour les gestionnaires de clubs.</p>
+        </div>
+
+        <div class="interventions">
+          <h3 class="titre-content">Mes interventions</h3>
+          <ul>
+            <li>🔐 <strong>Connexion utilisateur :</strong> authentification sécurisée avec redirection vers le dashboard</li>
+            <li>📊 <strong>Dashboard :</strong> affichage dynamique des terrains, réservations et joueurs associés via API</li>
+            <li>🧠 <strong>Logique métier :</strong> gestion des créneaux, statuts de réservation, affectation de joueurs</li>
+            <li>🧩 <strong>Interface :</strong> composants Blade modulaires, stylisés avec Tailwind</li>
+            <li>🚀 <strong>Performance :</strong> intégration d’une API fluide et optimisée pour l’affichage rapide des données</li>
+          </ul>
+        </div>
+
+        <div class="role">
+          <h3 class="titre-content">Mon rôle</h3>
+          <ul>
+            <li><strong>Développeur Laravel :</strong> création de toute la partie CRM backend & frontend</li>
+            <li>Connexion sécurisée avec sessions et middleware Laravel</li>
+            <li>Intégration du dashboard relié à une API pour les données en temps réel</li>
+            <li>Développement responsive avec Tailwind pour une UX fluide sur tous les supports</li>
+            <li>Création de composants réutilisables en Blade pour accélérer le développement</li>
+          </ul>
+        </div>
+      </article>
+
+      <div class="imgs">
+        <img src="/taimi1.png" alt="Dashboard Taimi" loading="lazy"/>
+        <img src="/taimi2.png" alt="Gestion des réservations" loading="lazy"/>
+        <img class="full" src="/taimi-full.png" alt="Vue complète Taimi" loading="lazy"/>
+      </div>
+    </div>
+  </section>
+</Layout>
